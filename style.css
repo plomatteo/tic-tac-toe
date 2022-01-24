@@ -125,8 +125,8 @@ td {
     }
 
     td {
-        width: 8rem;
-        height: 8rem;
+        width: 7rem;
+        height: 7rem;
     }
 
     .col-30 {
@@ -145,7 +145,7 @@ td {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 15px;
     }
 
     #buttonArea {

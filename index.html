@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-30">
+            <h1>Tic Tac Toe</h1>
+        <div id="buttonArea">
+            <button class="gameButton" onclick="replay()">
+                New game
+            </button>
+        </div>
+        <div id="textArea">
+            <p id="testo"></p>
+        </div>
+    </div>
+    <div id="gameField" class="col-60">
+    </div>
+    </div>
+
+    <script>
+
+        const createGameField = () => {
+            let grid = `<table>
+        <tr>
+            <td id="0" onclick="addSign(id)"></td>
+            <td id="1" onclick="addSign(id)"></td>
+            <td id="2" onclick="addSign(id)"></td>
+        </tr>
+        <tr>
+            <td id="3" onclick="addSign(id)"></td>
+            <td id="4" onclick="addSign(id)"></td>
+            <td id="5" onclick="addSign(id)"></td>
+        </tr>
+        <tr>
+            <td id="6" onclick="addSign(id)"></td>
+            <td id="7" onclick="addSign(id)"></td>
+            <td id="8" onclick="addSign(id)"></td>
+        </tr>
+    </table>`;
+            document.getElementById('gameField').innerHTML = grid;
+        }
+        createGameField();
+
+
+        let turn = 0;
+        let play = true;
+        let arrayX = [];
+        let arrayO = [];
+        const winArray = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        const addSign = (id) => {
+            const ID = document.getElementById(id);
+            if (play) {
+                if (!document.getElementById(id).innerHTML) {
+                    turn++;
+                    if (turn % 2 == 0) {
+                        ID.innerHTML = 'O';
+                        ID.classList.add('assignDone')
+                        ID.classList.add('oColor');
+                        arrayO.push(parseInt(id));
+                        checkWin(arrayO, 'O', 'redColor');
+                        setTimeout(() => { ID.classList.remove('assignDone') }, 500);
+
+                    } else {
+                        ID.innerHTML = 'X';
+                        ID.classList.add('assignDone');
+                        ID.classList.add('xColor');
+                        arrayX.push(parseInt(id));
+                        checkWin(arrayX, 'X', 'blueColor');
+                        setTimeout(() => { ID.classList.remove('assignDone') }, 500);
+                    }
+                }
+                else {
+                    ID.classList.add('assignFailed');
+                    setTimeout(() => { ID.classList.remove('assignFailed') }, 500)
+                }
+            }
+        }
+
+        const checkWin = (array, sign, color) => {
+            const TEXT = document.getElementById('testo');
+            for (const elemWin of winArray) {
+                let counterWin = 0;
+                for (const elElemWin of elemWin) {
+                    console.log(array);
+                    if (array.includes(elElemWin)) {
+                        counterWin++;
+                        if (counterWin == 3) {
+                            TEXT.innerHTML=`Ha vinto ${sign}`;
+                            TEXT.classList.remove('redColor');
+                            TEXT.classList.remove('blueColor');
+                            TEXT.classList.add(color);
+                            elemWin.map(el => document.getElementById(el).classList.add('assignWin'));
+                            play = false;
+                            return;
+                        }
+                    }
+                }
+            }
+            if (turn == 9) {
+                TEXT.classList.remove('redColor');
+                TEXT.classList.remove('blueColor');
+                TEXT.innerHTML="Pareggio";
+                play = false;
+            }
+        }
+
+        const clearText = () => {
+            const TEXT = document.getElementById('testo');
+            TEXT.innerHTML="";
+        }
+        const replay = () => {
+            turn = 0;
+            play = true;
+            arrayX = [];
+            arrayO = [];
+            createGameField();
+            clearText();
+        }
+
+    </script>
+</body>
+
+</html>

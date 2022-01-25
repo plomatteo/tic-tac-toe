@@ -154,9 +154,21 @@ td {
         justify-content: center;
         padding-right: 0px;
     }
+    .gameButton {
+        font-size: 17px;
+        padding: 26px;
+        border-radius: 10px;
+        border: none;
+        border-radius: 10px;
+        border: none;
+        color: black;
+        background-color: white;
+        box-shadow: 2px 4px green;
+    }
     h1 {
         text-align: CENTER;
         padding-right: 0px;
+        font-size: 36px;
     }
     #textArea {
         padding-right: 0px;
